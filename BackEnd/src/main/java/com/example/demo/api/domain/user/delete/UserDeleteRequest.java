@@ -1,6 +1,5 @@
-package com.example.demo.api.domain.service;
+package com.example.demo.api.domain.user.delete;
 
-import com.example.demo.core.entity.Service;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -14,10 +13,6 @@ import lombok.ToString;
 @EqualsAndHashCode
 @NoArgsConstructor
 @AllArgsConstructor
-public class ServiceCreateRequest {
-  private String name;
-
-  public Service.ServiceBuilder toServiceBuilder() {
-    return Service.builder().name(this.name);
-  }
+public class UserDeleteRequest {
+  private String id;
 }

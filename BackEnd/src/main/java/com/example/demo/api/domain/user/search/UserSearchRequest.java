@@ -1,4 +1,4 @@
-package com.example.demo.core.entity;
+package com.example.demo.api.domain.user.search;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -13,23 +13,7 @@ import lombok.ToString;
 @EqualsAndHashCode
 @NoArgsConstructor
 @AllArgsConstructor
-public class User {
-  private Long id;
-
-
-
-  private String fullName;
-
-
-  private String userName;
-
-
-  private String userPassword;
-
-
-  private String email;
-
-
-  private String phone;
-
+public class UserSearchRequest {
+  private String name;
+  private  Long id;
 }

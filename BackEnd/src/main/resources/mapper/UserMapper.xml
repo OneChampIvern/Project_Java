@@ -20,6 +20,24 @@
             SELECT * FROM user
     ]]>
     </select>
+    <select id="find" parameterType = "string">
+        <![CDATA[
+        SELECT * FROM `user`
+        WHERE
+        <if test="id != null">
+            id = #{id}
+        </if>
+        <if test="username != null">
+            username = #{username}
+        </if>
+        <if test="email != null">
+            email = #{email}
+        </if>
+        <if test="address != null">
+            address = #{address}
+        </if>
+    ]]>
+    </select>
     <insert id = "insert" parameterType = "com.example.demo.model.User">
         <![CDATA[
         INSERT INTO USER1 (id, full_name, user_name, user_password, email, phone )
@@ -31,7 +49,7 @@
         UPDATE USER SET id = #{id}, full_name = #{fullName}, user_name = #{userName}, user_password = #{userPassword}, email = #{email} phone= #{phone} WHERE user_name = #{userName};
         ]]>
     </update>
-    <delete id = "deleteById" parameterType = "int">
+    <delete id = "deleteById" parameterType = "Long">
         <![CDATA[
              DELETE from user WHERE id = #{id}
     ]]>
