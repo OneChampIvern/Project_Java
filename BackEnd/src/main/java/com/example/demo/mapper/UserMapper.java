@@ -13,5 +13,5 @@ import org.apache.ibatis.annotations.Mapper;
 public interface UserMapper {
 
   public List<User> getAll();
-  public void deleteById(int id);
+
 }
