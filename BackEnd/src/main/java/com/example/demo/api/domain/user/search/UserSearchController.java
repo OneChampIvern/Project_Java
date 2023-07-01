@@ -17,12 +17,12 @@ public class UserSearchController {
 
   private final UserSearchService userSearchService;
 
-  @GetMapping("/search")
-  public ResponseEntity<PagingResponse<UserSearchResponse>> searchUsers(@RequestParam(defaultValue = "") String aaa,
+  @GetMapping(value = "/search")
+  public ResponseEntity<PagingResponse<UserSearchResponse>> searchUsers(@RequestParam(defaultValue = "") String key,
       @RequestParam(defaultValue = "0") int page,
       @RequestParam(defaultValue = "20") int size) {
     UserSearchRequest obj = new UserSearchRequest();
-    obj.setSearch(aaa);
+    obj.setSearch(key);
     RowBounds rowBounds = new RowBounds(page * size, size);
     return ResponseEntity.ok(userSearchService.execute(obj,rowBounds));
   }
