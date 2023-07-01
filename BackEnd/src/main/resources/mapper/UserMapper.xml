@@ -1,57 +1,60 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.example.demo.mapper.UserMapper">
+<mapper namespace="com.example.demo.core.repository.UserRepository">
 
-    <resultMap id="BaseResultMap" type="com.example.demo.model.User">
-        <id column="id" jdbcType="BIGINT" property="id" />
-        <result column="full_name" jdbcType="VARCHAR" property="fullName" />
-        <result column="user_name" jdbcType="VARCHAR" property="userName" />
-        <result column="user_password" jdbcType="VARCHAR" property="userPassword" />
-        <result column="email" jdbcType="VARCHAR" property="email" />
-        <result column="phone" jdbcType="VARCHAR" property="phone" />
-    </resultMap>
+  <resultMap id="BaseResultMap" type="com.example.demo.core.entity.User">
+    <id column="id" jdbcType="BIGINT" property="id"/>
+    <result column="full_name" jdbcType="VARCHAR" property="fullName"/>
+    <result column="user_name" jdbcType="VARCHAR" property="userName"/>
+    <result column="user_password" jdbcType="VARCHAR" property="userPassword"/>
+    <result column="email" jdbcType="VARCHAR" property="email"/>
+    <result column="phone" jdbcType="VARCHAR" property="phone"/>
+  </resultMap>
 
-    <sql id="Base_Column_List">
-        id,full_name, user_name, user_password, email, phone
-    </sql>
-    <select id = "getAll" resultMap = "BaseResultMap">
-        <![CDATA[
+  <sql id="Base_Column_List">
+    id,full_name, user_name, user_password, email, phone
+  </sql>
+
+  <select id="getAll" resultMap="BaseResultMap">
+    <![CDATA[
             SELECT * FROM user
     ]]>
-    </select>
-    <select id="find" parameterType = "string">
-        <![CDATA[
-        SELECT * FROM `user`
-        WHERE
-        <if test="id != null">
-            id = #{id}
-        </if>
-        <if test="username != null">
-            username = #{username}
-        </if>
-        <if test="email != null">
-            email = #{email}
-        </if>
-        <if test="address != null">
-            address = #{address}
-        </if>
-    ]]>
-    </select>
-    <insert id = "insert" parameterType = "com.example.demo.model.User">
-        <![CDATA[
-        INSERT INTO USER1 (id, full_name, user_name, user_password, email, phone )
-        VALUES (#{id}, #{fullName},#{userName}, #{userPassword}, #{email}, #{phone});
-        ]]>
-    </insert>
-    <update id = "update" parameterType = "com.example.demo.model.User">
-        <![CDATA[
+  </select>
+
+  <select id="findAll" resultType="com.example.demo.core.entity.User">
+    SELECT * FROM user
+    <where>
+      <if test="search != null">
+        user_name LIKE CONCAT('%', #{search}, '%')
+      </if>
+    </where>
+  </select>
+
+  <select id="countFindAll" resultType="java.lang.Long">
+    SELECT count(id) FROM user
+    <where>
+      <if test="search != null">
+        user_name LIKE CONCAT('%', #{search}, '%')
+      </if>
+    </where>
+  </select>
+
+  <insert id="insert" parameterType="com.example.demo.model.User" flushCache="true" keyProperty="id" useGeneratedKeys="true">
+
+        INSERT INTO USER (id, full_name, user_name, user_password, email, phone )
+        VALUES (#{id}, #{fullName}, #{userName}, #{userPassword}, #{email}, #{phone});
+
+  </insert>
+  <update id="update" parameterType="com.example.demo.model.User">
+    <![CDATA[
         UPDATE USER SET id = #{id}, full_name = #{fullName}, user_name = #{userName}, user_password = #{userPassword}, email = #{email} phone= #{phone} WHERE user_name = #{userName};
         ]]>
-    </update>
-    <delete id = "deleteById" parameterType = "Long">
-        <![CDATA[
+  </update>
+  <delete id="deleteById" parameterType="Long">
+    <![CDATA[
              DELETE from user WHERE id = #{id}
     ]]>
-    </delete>
+  </delete>
 </mapper>

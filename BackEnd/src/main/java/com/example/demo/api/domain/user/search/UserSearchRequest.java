@@ -14,6 +14,5 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 public class UserSearchRequest {
-  private String name;
-  private  Long id;
+  private String search;
 }
